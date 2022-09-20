@@ -38,6 +38,7 @@ dependencies:
   dio: ^4.0.6
   pinput: ^2.2.12
   shared_preferences: ^2.0.15
+  jwt_decoder: ^2.0.1
 
 dev_dependencies:
   flutter_test:

@@ -1,7 +1,5 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
+import 'package:project_logic/providers/providers.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Profile extends StatefulWidget {
@@ -17,11 +15,7 @@ class _ProfileState extends State<Profile> {
   Map userData = {};
 
   Future<void> getUserData() async {
-    final prefs = await SharedPreferences.getInstance();
-    String? token = prefs.getString("USER_AUTH");
-
-    var response = await Dio().get('/userData',
-        options: Options(headers: {"Authorization": "Bearer ${token!}"}));
+    var response = await Providers.getUserById();
 
     if (response.statusCode == 200) {
       setState(() {
