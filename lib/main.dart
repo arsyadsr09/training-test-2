@@ -63,18 +63,18 @@ class _MyHomePageState extends State<MyHomePage> {
     print(controller.text);
     print(passwordController.text);
 
-    var response = await Dio().post('/test', data: {'id': 12, 'name': 'wendu'});
+    // var response = await Dio().post('/test', data: {'id': 12, 'name': 'wendu'});
 
-    if (response.statusCode == 200) {
-      // lets go to otp
-      Navigator.pushNamed(context, '/Profile');
-      // or
-      String resultName = "Budi";
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => Profile(name: resultName)),
-      );
-    }
+    // if (response.statusCode == 200) {
+    // lets go to otp
+    // Navigator.pushNamed(context, '/Profile');
+    // or
+    String resultName = "Budi";
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => Profile(name: resultName)),
+    );
+    // }
   }
 
   @override
