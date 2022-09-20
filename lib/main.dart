@@ -1,3 +1,7 @@
+import 'dart:io';
+
+import 'package:dio/adapter.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:project_logic/providers/providers.dart';
 import 'package:project_logic/routes.dart';
@@ -7,6 +11,13 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
   runApp(const MyApp());
+
+  (Dio().httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate =
+      (HttpClient dioClient) {
+    dioClient.badCertificateCallback =
+        ((X509Certificate cert, String host, int port) => true);
+    return dioClient;
+  };
 }
 
 class MyApp extends StatefulWidget {
