@@ -69,9 +69,10 @@ class _MyHomePageState extends State<MyHomePage> {
       // lets go to otp
       Navigator.pushNamed(context, '/Profile');
       // or
+      String resultName = "Budi";
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => Profile()),
+        MaterialPageRoute(builder: (context) => Profile(name: resultName)),
       );
     }
   }
