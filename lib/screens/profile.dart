@@ -16,8 +16,8 @@ class _ProfileState extends State<Profile> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        automaticallyImplyLeading: false,
-      ),
+          // automaticallyImplyLeading: false,
+          ),
       body: Center(
         child: Row(
           children: [
@@ -26,7 +26,13 @@ class _ProfileState extends State<Profile> {
                 onPressed: () {
                   Navigator.pop(context);
                 },
-                child: Text("Back"))
+                child: Text("Back")),
+            ElevatedButton(
+                onPressed: () {
+                  // Navigator.of(context).pushReplacementNamed('/Home');
+                  Navigator.popAndPushNamed(context, '/Home');
+                },
+                child: Text("Home"))
           ],
         ),
       ),
