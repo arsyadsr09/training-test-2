@@ -3,6 +3,7 @@ import 'package:dio/dio.dart';
 import 'package:project_logic/routes.dart';
 import 'package:project_logic/screens/home/home.dart';
 import 'package:project_logic/screens/profile.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
   runApp(const MyApp());
@@ -63,9 +64,15 @@ class _MyHomePageState extends State<MyHomePage> {
     print(controller.text);
     print(passwordController.text);
 
-    // var response = await Dio().post('/test', data: {'id': 12, 'name': 'wendu'});
+    var response = await Dio().post('/login', data: {'id': 12, 'name': 'wendu'});
 
     // if (response.statusCode == 200) {
+    String token =
+        "laksdjlasjdlkasjdioqwjeoqwjieoiqwjeoqiwjeoq;wneq;kwjnelqkwjenkqwljneqwkjlneqwjk";
+    // Obtain shared preferences.
+    final prefs = await SharedPreferences.getInstance();
+
+    await prefs.setString('USER_AUTH', token);
     // lets go to otp
     // Navigator.pushNamed(context, '/Profile');
     // or

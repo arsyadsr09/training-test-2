@@ -1,6 +1,8 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Profile extends StatefulWidget {
   const Profile({super.key, this.name});
@@ -12,6 +14,22 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
+  Map userData = {};
+
+  Future<void> getUserData() async {
+    final prefs = await SharedPreferences.getInstance();
+    String? token = prefs.getString("USER_AUTH");
+
+    var response = await Dio().get('/userData',
+        options: Options(headers: {"Authorization": "Bearer ${token!}"}));
+
+    if (response.statusCode == 200) {
+      setState(() {
+        userData = response.data;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
