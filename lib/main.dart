@@ -48,6 +48,17 @@ class _MyHomePageState extends State<MyHomePage> {
     return null;
   }
 
+  Future<void> onSubmitClicked() async {
+    print(controller.text);
+    print(passwordController.text);
+
+    var response = await Dio().post('/test', data: {'id': 12, 'name': 'wendu'});
+
+    if(response.statusCode == 200){
+      // lets go to otp
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -91,11 +102,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ),
                 ElevatedButton(
-                    onPressed: () {
-                      print(controller.text);
-                      print(passwordController.text);
-                    },
-                    child: Text("submit"))
+                    onPressed: () => onSubmitClicked(), child: Text("submit"))
               ],
             ),
           ),
