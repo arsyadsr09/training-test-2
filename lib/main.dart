@@ -1,12 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
+import 'package:project_logic/routes.dart';
+import 'package:project_logic/screens/home/home.dart';
+import 'package:project_logic/screens/profile.dart';
 
 void main() {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  bool isAdmin = true;
 
   @override
   Widget build(BuildContext context) {
@@ -15,6 +25,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
+      routes: isAdmin ? routesAdmin : routes,
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
@@ -54,8 +65,14 @@ class _MyHomePageState extends State<MyHomePage> {
 
     var response = await Dio().post('/test', data: {'id': 12, 'name': 'wendu'});
 
-    if(response.statusCode == 200){
+    if (response.statusCode == 200) {
       // lets go to otp
+      Navigator.pushNamed(context, '/Profile');
+      // or
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => Profile()),
+      );
     }
   }
 

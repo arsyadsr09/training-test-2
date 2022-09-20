@@ -7,3 +7,8 @@ final Map<String, WidgetBuilder> routes = {
   '/Home': (BuildContext context) => Home(),
   "/Profile": (BuildContext context) => const Profile(),
 };
+
+final Map<String, WidgetBuilder> routesAdmin = {
+  '/Home': (BuildContext context) => Home(),
+  "/Profile": (BuildContext context) => const Profile(),
+};
