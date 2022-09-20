@@ -1,23 +1,24 @@
 import 'dart:io';
 
-import 'package:dio/adapter.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:project_logic/providers/providers.dart';
 import 'package:project_logic/routes.dart';
-import 'package:project_logic/screens/home/home.dart';
 import 'package:project_logic/screens/profile.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-void main() {
-  runApp(const MyApp());
+class MyHttpOverrides extends HttpOverrides {
+  @override
+  HttpClient createHttpClient(SecurityContext? context) {
+    return super.createHttpClient(context)
+      ..badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
+  }
+}
 
-  (Dio().httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate =
-      (HttpClient dioClient) {
-    dioClient.badCertificateCallback =
-        ((X509Certificate cert, String host, int port) => true);
-    return dioClient;
-  };
+void main() {
+  HttpOverrides.global = MyHttpOverrides();
+
+  runApp(const MyApp());
 }
 
 class MyApp extends StatefulWidget {
