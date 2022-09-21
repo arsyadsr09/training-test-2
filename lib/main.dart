@@ -6,6 +6,8 @@ import 'package:project_logic/routes.dart';
 import 'package:project_logic/screens/profile.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'models/pokemon_model.dart';
+
 class MyHttpOverrides extends HttpOverrides {
   @override
   HttpClient createHttpClient(SecurityContext? context) {
@@ -57,7 +59,7 @@ class _MyHomePageState extends State<MyHomePage> {
   final TextEditingController controller = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
-  Map dataPokemon = {};
+  Pokemon dataPokemon = Pokemon();
 
   String? get _errorText {
     // at any time, we can get the text from _controller.value.text
@@ -79,7 +81,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
     if (response.statusCode == 200) {
       setState(() {
-        dataPokemon = response.data;
+        dataPokemon = Pokemon.fromJson(response.data);
       });
     }
   }
@@ -104,7 +106,7 @@ class _MyHomePageState extends State<MyHomePage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text("${dataPokemon['base_experience']}"),
+                Text("${dataPokemon.name}"),
                 TextField(
                   onChanged: (value) => print(value),
                   controller: controller,
