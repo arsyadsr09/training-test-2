@@ -32,16 +32,9 @@ class Providers {
             }));
   }
 
-  static Future getTransaction() async {
-    final prefs = await SharedPreferences.getInstance();
-    String? token = prefs.getString("USER_AUTH");
-
-    Map decoded = JwtDecoder.decode(token!);
-    String id = decoded['user_id'];
-
-    return Dio().get('$HOST/transactions/$id',
+  static Future getPokemon() async {
+    return Dio().get('https://pokeapi.co/api/v2/pokemon/ditto',
         options: Options(
-            headers: {"Authorization": "Bearer $token"},
             followRedirects: false,
             validateStatus: (status) {
               return status! < 1000;

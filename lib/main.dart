@@ -57,6 +57,8 @@ class _MyHomePageState extends State<MyHomePage> {
   final TextEditingController controller = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
+  Map dataPokemon = {};
+
   String? get _errorText {
     // at any time, we can get the text from _controller.value.text
     final text = controller.value.text;
@@ -73,28 +75,12 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Future<void> onSubmitClicked() async {
-    print(controller.text);
-    print(passwordController.text);
-
-    var response = await Providers.login(
-        email: controller.text, password: passwordController.text);
+    var response = await Providers.getPokemon();
 
     if (response.statusCode == 200) {
-      String token =
-          "laksdjlasjdlkasjdioqwjeoqwjieoiqwjeoqiwjeoq;wneq;kwjnelqkwjenkqwljneqwkjlneqwjk";
-      // Obtain shared preferences.
-      final prefs = await SharedPreferences.getInstance();
-
-      await prefs.setString('USER_AUTH', token);
-      // lets go to otp
-      // Navigator.pushNamed(context, '/Profile');
-      // or
-      String resultName = "Budi";
-      // ignore: use_build_context_synchronously
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => Profile(name: resultName)),
-      );
+      setState(() {
+        dataPokemon = response.data;
+      });
     }
   }
 
@@ -118,6 +104,7 @@ class _MyHomePageState extends State<MyHomePage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                Text("${dataPokemon['base_experience']}"),
                 TextField(
                   onChanged: (value) => print(value),
                   controller: controller,
